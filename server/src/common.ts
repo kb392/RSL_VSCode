@@ -600,6 +600,24 @@ export class CBase extends CAbstractBase {
                     case kwdNum._macro: this.CreateMacro(false); break;
                     case kwdNum._import: this.CreateImport(); break;
                     case kwdNum._class: this.CreateClass(false); break;
+                    case kwdNum._onerror: {
+                        // OnError [ (переменная) ] — регистрируем переменную ошибки, если она есть
+                        let nextTok: IToken = this.NextToken(SkipComment.no);
+                        if (nextTok.str == "(") {
+                            let varName: IToken = this.NextToken();
+                            if (varName.str && varName.str != ")") {
+                                let errVar: CVar = new CVar(varName.str, false, false, false);
+                                errVar.setRange({ start: varName.range.start + this.offset, end: varName.range.end + this.offset });
+                                this.addChild(errVar);
+                            }
+                            // пропускаем до ")"
+                            while (!this.End && this.CurrentChar != ")") this.Next();
+                            if (!this.End) this.Next(); // съедаем ")"
+                        } else {
+                            // без параметра — просто откатываемся, чтобы не потерять токен
+                            this.position = nextTok.range.start;
+                        }
+                    } break;
                     default: break;
                 }
             }
