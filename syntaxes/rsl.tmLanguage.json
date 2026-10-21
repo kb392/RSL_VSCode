@@ -272,24 +272,15 @@
       "global_variables": {
          "patterns": [
             {
-               "begin": "\\s*(?=\\{)",
+               "begin": "\\{",
                "beginCaptures": {
-                  "0": {
-                     "name": "storage.type.rsl"
-                  }
+                  "0": { "name": "punctuation.definition.variable.global.begin.rsl" }
                },
-               "end": "(?=\\})",
+               "end": "\\}",
                "endCaptures": {
-                  "0": {
-                     "name": "storage.type.rsl"
-                  }
+                  "0": { "name": "punctuation.definition.variable.global.end.rsl" }
                },
-               "patterns": [
-                  {
-                     "match": "[\\w*]",
-                     "name": "variable.parameter.global.rsl"
-                  }
-               ]
+               "name": "variable.parameter.global.rsl"
             }
          ]
       },
