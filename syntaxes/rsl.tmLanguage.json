@@ -54,8 +54,10 @@
                "include": "#function_call"
             },
             {
-               "match": "\\b[\\w]+(?=[\\[])(?=[\\s\\w,\"@:]*)",
-               "name": "variable.language.array.rsl"
+               "match": "\\b([\\w]+)(?=\\[)",
+               "captures": {
+                  "1": { "name": "variable.other.array.rsl" }
+               }
             },
             {
                "include": "#output_string"
