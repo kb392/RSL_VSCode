@@ -428,13 +428,27 @@ export class CBase extends CAbstractBase {
     }
     protected GetMLC(): string {
         let comment: string = "";
-        while (!((this.CurrentChar == "*") && (this.CurIndex(this.Pos + 1) == "/")) && !this.End) {
-            comment += this.CurrentChar;
-            this.Next();
+        let depth: number = 1;
+        // пропускаем открывающий "/*"
+        if (this.CurrentChar == "/" && this.CurIndex(this.Pos + 1) == "*") {
+            this.Next(); this.Next();
         }
-        this.Next(); this.Next();
+        while (depth > 0 && !this.End) {
+            if (this.CurrentChar == "/" && this.CurIndex(this.Pos + 1) == "*") {
+                depth++;
+                comment += "/*";
+                this.Next(); this.Next();
+            } else if (this.CurrentChar == "*" && this.CurIndex(this.Pos + 1) == "/") {
+                depth--;
+                if (depth > 0) comment += "*/";
+                this.Next(); this.Next();
+            } else {
+                comment += this.CurrentChar;
+                this.Next();
+            }
+        }
         return comment;
-    }
+    }    
     protected SkipToEndComment(isOLC: boolean = false): void {
         if (isOLC) {
             this.GetOLC();
