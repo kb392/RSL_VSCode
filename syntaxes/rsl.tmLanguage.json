@@ -107,17 +107,23 @@
             {
                "begin": "(\\s|^)\\[",
                "beginCaptures": {
-                  "0": {
-                     "name": "string.quoted.single.rsl"
-                  }
+                  "0": { "name": "string.quoted.single.rsl" }
                },
                "end": "\\]",
                "endCaptures": {
-                  "0": {
-                     "name": "string.quoted.single.rsl"
-                  }
+                  "0": { "name": "string.quoted.single.rsl" }
                },
-               "name": "string.quoted.single.rsl"
+               "name": "string.quoted.single.rsl",
+               "patterns": [
+                  {
+                     "match": ":(?:[lrcamzfoesvxtdw])(?![\\w])",
+                     "name": "keyword.other.format-specifier.rsl"
+                  },
+                  {
+                     "match": "#+",
+                     "name": "constant.other.placeholder.rsl"
+                  }
+               ]
             },
             {
                "match": "(\\s|^)\\[(\\s*.*)\\]\\s*(?=;|\\()",
