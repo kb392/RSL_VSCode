@@ -343,10 +343,10 @@ export class CBase extends CAbstractBase {
         if (this.CurrentChar == "{") {
             // Спецпеременная {…} — читаем до парной "}", не разбивая по STOP_CHARS
             while (!this.End) {
-                token += this.CurrentChar;
+                token += this.CurIndex(this.Pos);
                 this.Next();
-                if (this.CurrentChar == "}") {
-                    token += this.CurrentChar;
+                if (this.CurIndex(this.Pos) == "}") {
+                    token += this.CurIndex(this.Pos);
                     this.Next();
                     break;
                 }
