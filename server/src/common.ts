@@ -244,6 +244,21 @@ export class CBase extends CAbstractBase {
             this.SavePos();
             this.position = _position - 1;
             if (!DEFAULT_WHITESPACES.includes(this.CurrentChar)) {
+                // Если курсор стоит сразу после "]", откатываемся до парной "["
+                if (this.CurrentChar === "]") {
+                    let depth: number = 1;
+                    this.position--;
+                    while (depth > 0 && this.position >= 0) {
+                        if (this.CurrentChar === "]") depth++;
+                        else if (this.CurrentChar === "[") depth--;
+                        if (depth > 0) this.position--;
+                    }
+                    // Теперь position стоит на "["; шагнём на один вперёд, чтобы NextToken съел "[...]"
+                    this.position++;
+                    res = this.NextToken();
+                    if (savePosition) this.RestorePos();
+                    return res;
+                }
                 if (this.CurrentChar === ".") this.position--;
                 while (!this.IsStopChar() && this.CurrentChar != undefined) {
                     this.position--;
@@ -335,6 +350,18 @@ export class CBase extends CAbstractBase {
                     this.Next();
                     break;
                 }
+            }
+        }
+        else if (this.CurrentChar == "[") {
+            // Индексное выражение [...] — читаем до парной "]" с учётом вложенности
+            let depth: number = 1;
+            token += this.CurrentChar;
+            this.Next();
+            while (depth > 0 && !this.End) {
+                if (this.CurrentChar == "[") depth++;
+                else if (this.CurrentChar == "]") depth--;
+                token += this.CurrentChar;
+                this.Next();
             }
         }
         else if (!this.IsStopChar()) {
