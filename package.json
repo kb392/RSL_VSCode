@@ -3,7 +3,7 @@
    "displayName": "RSL",
    "description": "R-Style Language support",
    "author": "Veniamin Rakov",
-   "license": "SEE LICENSE IN 'LICENSE' file",
+   "license": "MIT",
    "version": "1.0.19",
    "icon": "icon.png",
    "bugs": {
@@ -148,7 +148,8 @@
       "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
       "compile": "tsc -b",
       "watch": "tsc -b -w",
-      "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+      "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+      "package": "mkdir releases & npx @vscode/vsce package -o releases/"
    },
    "devDependencies": {
       "@types/mocha": "^5.2.7",

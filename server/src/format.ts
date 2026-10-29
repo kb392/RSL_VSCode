@@ -15,11 +15,11 @@ const BUILTIN_FUNCTIONS: string[] = [
     'ToOEM', 'ToANSI',
     // Преобразование типов
     'ValType', 'Double', 'DoubleL', 'Int', 'String', 'Money', 'MkStr', 'Floor',
-    'Asize', 'Date', 'DateSplit', 'Time', 'TimeSplit', 'DtTm', 'DtTmSplit',
+    'ASize', 'Date', 'DateSplit', 'Time', 'TimeSplit', 'DtTm', 'DtTmSplit',
     'RubToStr', 'RubToStrAlt', 'CurToStrAlt', 'MonName', 'NumToStr',
     'SetAutoMoneyFloor', 'Round',
     // Параметры процедур
-    'GetParm', 'SetParm', 'Parmcount',
+    'GetParm', 'SetParm', 'ParmCount',
     // Математика
     'Abs', 'Min', 'Max', 'Mod', 'Exp', 'Log', 'Log10', 'Pow', 'Sqrt', 'CheckBits',
     // Файлы и БД
